@@ -1,8 +1,8 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 
-const TaskContext = createContext();
+export const TaskContext = createContext();
 
-const TaskContextProvider = () => {
+const TaskContextProvider = ({ children }) => {
   const initialValue = {
     taskList: [],
     isLoading: false,
@@ -37,10 +37,20 @@ const TaskContextProvider = () => {
     }
   };
 
-  const [state, dispatch] = useReducer(taskReducer, initialValue);
+  const checkState = localStorage.getItem("taskState");
+
+  const setInitialValue = checkState ? JSON.parse(checkState) : initialValue;
+
+  const [state, dispatch] = useReducer(taskReducer, setInitialValue);
+
+  useEffect(() => {
+    localStorage.setItem("taskState", JSON.stringify(state));
+  }, [state]);
 
   return (
-    <TaskContext.Provider value={{ state, dispatch }}></TaskContext.Provider>
+    <TaskContext.Provider value={{ state, dispatch }}>
+      {children}
+    </TaskContext.Provider>
   );
 };
 
