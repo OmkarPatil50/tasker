@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TaskContext } from "../../context/TaskContextProvider";
+import { v4 as uuid } from "uuid";
 import "./TaskForm.css";
 
 const TaskForm = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const { dispatch } = useContext(TaskContext);
 
   const [isEditForm, setIsEditForm] = useState(false);
   const [taskDetails, setTaskDetails] = useState({
+    id: uuid(),
     name: "",
     description: "",
     priority: "",
@@ -19,6 +22,7 @@ const TaskForm = () => {
   useEffect(() => {
     if (location.state) {
       setIsEditForm(true);
+      setTaskDetails(location.state);
     }
 
     return () => {
@@ -34,7 +38,17 @@ const TaskForm = () => {
   };
 
   const submitHandler = () => {
-    dispatch({ type: "ADD_TASK", payload: taskDetails });
+    isEditForm
+      ? dispatch({
+          type: "EDIT_TASK",
+          payload: {
+            id: taskDetails.id,
+            updatedTask: taskDetails,
+          },
+        })
+      : dispatch({ type: "ADD_TASK", payload: taskDetails });
+
+    navigate("/");
   };
 
   return (
@@ -46,15 +60,31 @@ const TaskForm = () => {
       <h2 className="form-heading">{isEditForm ? "Edit" : "Add"} Task</h2>
       <fieldset className="task-fieldset">
         <legend className="task-legend task-name">Task Name</legend>
-        <input className="task-input" type="text" name="name" required/>
+        <input
+          className="task-input"
+          type="text"
+          name="name"
+          required
+          value={taskDetails.name}
+        />
       </fieldset>
       <fieldset className="task-fieldset">
         <legend className="task-legend">Task Description</legend>
-        <input className="task-input" type="text" name="description" />
+        <input
+          className="task-input"
+          type="text"
+          name="description"
+          value={taskDetails.description}
+        />
       </fieldset>
       <fieldset className="task-fieldset">
         <legend className="task-legend">Priority level</legend>
-        <select className="task-select" name="priority" id="priority">
+        <select
+          className="task-select"
+          name="priority"
+          id="priority"
+          value={taskDetails.priority}
+        >
           <option value="">Select Priority Level</option>
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -63,7 +93,12 @@ const TaskForm = () => {
       </fieldset>
       <fieldset className="task-fieldset">
         <legend className="task-legend">Task Due Date</legend>
-        <input className="task-input" type="date" name="dueDate" />
+        <input
+          className="task-input"
+          type="date"
+          name="dueDate"
+          value={taskDetails.dueDate}
+        />
       </fieldset>
       <button className="task-button" type="submit">
         {isEditForm ? "Edit" : "Add"} Task
