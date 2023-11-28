@@ -1,0 +1,97 @@
+.task-card {
+  width: 400px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--white-color);
+  border: 1px solid var(--lynx-gray-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+  -webkit-transition: transform 0.2s ease-in-out;
+  -moz-transition: transform 0.2s ease-in-out;
+  -ms-transition: transform 0.2s ease-in-out;
+  -o-transition: transform 0.2s ease-in-out;
+}
+
+.task-card:hover {
+  transform: scale(1.02);
+}
+
+.task-title, .task-description, .task-priority, .task-due-date{
+    flex-grow: 1;
+}
+
+.task-title {
+  font-size: 20px;
+  color: var(--black-color);
+  margin: 0 10px 10px 0;
+  width: 70%;
+}
+
+.task-description {
+  font-size: 16px;
+  color: var(--black-color);
+  margin-bottom: 15px;
+}
+
+.task-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-priority,
+.task-due-date {
+  font-size: var(--s-size);
+  color: var(--grey-color);
+}
+
+.task-priority {
+  text-transform: capitalize;
+}
+
+.task-due-date {
+  font-weight: var(--semibold-weight);
+}
+
+.task-card button {
+  background-color: var(--action-color);
+  color: var(--white-color);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.task-card button:hover {
+  background-color: #2c68b6;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-icons {
+  display: flex;
+}
+
+.edit-icon,
+.delete-icon {
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 16px;
+  color: var(--grey-color);
+}
+
+.edit-icon:hover,
+.delete-icon:hover {
+  color: var(--action-color);
+}

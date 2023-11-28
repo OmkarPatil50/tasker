@@ -12,7 +12,7 @@ export function Navbar() {
       <input
         className="search-bar-nav"
         type="search"
-        placeholder="Search movies by title, cast and director..."
+        placeholder="Search Tasks..."
         onChange={(event) => {
           navigate("/");
           dispatch({ type: "UPDATE_SEARCH_TEXT", payload: event.target.value });
