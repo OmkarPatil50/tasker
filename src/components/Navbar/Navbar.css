@@ -1,0 +1,32 @@
+.navbar {
+    box-sizing: border-box;
+    margin: 0;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+  
+  .app-heading {
+    font-size: var(--m-size);
+  }
+  
+  .search-bar-nav {
+    padding: 10px;
+    width: 400px;
+    font-size: 14px;
+  }
+  
+  .active {
+    color: var(--secondary-color);
+    border-bottom: 3px solid var(--secondary-color);
+  }
+  
